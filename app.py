@@ -14,4 +14,5 @@ from injector import Binder
 if __name__ == '__main__':
     app = connexion.App(__name__, specification_dir='swagger/')
     app.add_api('IP_connexion.yaml')
+    app.add_api('command_connexion.yaml')
     app.run(port=5000,debug=True)

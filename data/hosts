@@ -1,0 +1,3 @@
+[Devices]
+1.34.45 ansible-ssh-user=root ansible-ssh-pass=pasord
+12.23.34.45 ansible-ssh-user=root ansible-ssh-pass=pasword
