@@ -1,18 +1,18 @@
-from flask import Flask
-from datetime import datetime
-import re
-from flask import render_template
 
-app = Flask(__name__)
+from connexion.resolver import RestyResolver
+import connexion
+from logic.DiscoveredDevices import Devices
+from flask_injector import FlaskInjector
+from api.discoveredDevices import Device
+from injector import Binder
 
-@app.route("/v1/<interface>")
-def hello_there(name = None):
-    return render_template(
-        "hello.html",
-        name=name,
-        date=datetime.now()
+def configure(binder: Binder) -> Binder:
+    binder.bind(
+        Devices
     )
 
-@app.route("/api/data")
-def get_data():
-    return app.send_static_file("data.json")
+if __name__ == '__main__':
+    app = connexion.App(__name__, specification_dir='swagger/')
+    app.add_api('IP_connexion.yaml', resolver=RestyResolver('api'))
+    FlaskInjector(app=app.app, modules=[configure])
+    app.run(port=5000,debug=True)

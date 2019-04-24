@@ -1,0 +1,27 @@
+swagger: "2.0"
+
+info:
+  title: "Discovered Devices API"
+  version: "1.0"
+
+basePath: /v1
+
+paths:
+  /Devices/:
+    get:
+      operationId: api.discoveredDevices.Device.get
+      responses:
+        '200':
+          description: 'Fetch a list of Discovered Devices'
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Device'          
+
+definitions:
+  Device:
+    type: object
+    properties:
+      id: { type: int }
+      MACAddr: { type: string }
+      IPAddr: { type: string }
