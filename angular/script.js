@@ -64,7 +64,6 @@ function installSoftware(){
             "IP" : selectedIPAddr[i],
             "pass" : passwordArr[i]
         }
-        console.log(data);
         configData.push(data);
     }
     var xmlhttp = new XMLHttpRequest();
