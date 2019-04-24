@@ -21,4 +21,4 @@ class Device:
     
     @inject(data_provider=Devices)
     def get(data_provider: Devices):
-        return data_provider.getCidrIP()
+        return data_provider.getSample()

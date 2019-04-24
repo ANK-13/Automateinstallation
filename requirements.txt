@@ -1,5 +1,9 @@
-flask==1.0.2
 socket
 math
 ansible
 netifaces
+Flask
+connexion
+Flask-Injector
+fastavro
+injector==0.12.0
