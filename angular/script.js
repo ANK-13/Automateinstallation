@@ -1,6 +1,7 @@
 var response = '';
 var selectedIPAddr = [];
 var passwordArr = [];
+var link = "http://localhost:3000";
 
 function showLoadingImage(){ 
     document.getElementById('loading').style.display='block';
@@ -29,7 +30,7 @@ function showLoadingImage(){
             document.getElementById("tableData").innerHTML = text;
         }
     };
-    xhttp.open("GET", "http://localhost:3000/posts/", true);
+    xhttp.open("GET", link+"/posts/", true);
     // xhttp.open("GET", "/v1/Devices/"+nic, true);
     xhttp.send();
 }
@@ -61,15 +62,15 @@ function installSoftware(){
     for(i=0; i< selectedIPAddr.length; i++){
         var data = {
             "IP" : selectedIPAddr[i],
-            "pass" : passwordArr[i],
-            "package" : softwareToInstall
+            "pass" : passwordArr[i]
         }
         console.log(data);
         configData.push(data);
     }
     var xmlhttp = new XMLHttpRequest();
-    xmlhttp.open("POST", "/v1/Broadcast");
+    xmlhttp.open("POST", link+"/v1/Broadcast");
     xmlhttp.setRequestHeader("Content-Type", "application/json");
+    xmlhttp.setRequestHeader("Package", softwareToInstall);
     xmlhttp.send(JSON.stringify(configData));
 }
 
@@ -97,6 +98,6 @@ function runCommand(){
         document.getElementById("demo").innerHTML = this.responseText;
         }
     };
-    xhttp.open("GET", "http://localhost:8080/command?cmd="+cmd, true);
+    xhttp.open("GET", link+"/command?cmd="+cmd, true);
     xhttp.send();
 }
