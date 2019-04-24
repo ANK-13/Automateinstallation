@@ -1,7 +1,7 @@
 var response = '';
 var selectedIPAddr = [];
 var passwordArr = [];
-var link = "http://localhost:3000";
+var link = "http://localhost:5000";
 
 function showLoadingImage(){ 
     document.getElementById('loading').style.display='block';
@@ -19,9 +19,9 @@ function showLoadingImage(){
             for (i = 0; i < response.length; i++) {
                 text += '<tr>\
                 <td><input type="checkbox" name="messageCheckbox" id="select'+i+'" value="'+response[i].author+'" onclick="if(this.checked){checkPasswordField('+i+')}"></td> \
-                <td>'+response[i].host+'</td> \
-                <td>'+response[i].title+'</td> \
-                <td>'+response[i].author+'</td> \
+                <td>'+response[i].Hostname+'</td> \
+                <td>'+response[i].MACAddr+'</td> \
+                <td>'+response[i].IPAddr+'</td> \
                 <td>root</td> \
                 <td><input type="text" name="password'+i+'" id="password'+i+'"></td> \
                 <td id="err'+i+'" style="color: red"></td> \
@@ -30,8 +30,8 @@ function showLoadingImage(){
             document.getElementById("tableData").innerHTML = text;
         }
     };
-    xhttp.open("GET", link+"/posts/", true);
-    // xhttp.open("GET", "/v1/Devices/"+nic, true);
+    // xhttp.open("GET", link+"/posts/", true);
+    xhttp.open("GET", link+"/v1/Devices/"+nic, true);
     xhttp.send();
 }
 
