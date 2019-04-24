@@ -8,6 +8,7 @@ function showLoadingImage(){
     document.getElementById("managebtn").disabled = true;
     var nic = document.getElementById("nic").value;
     var xhttp = new XMLHttpRequest();
+    xhttp.setRequestHeader("Access-Control-Allow-Origin", "*");
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             document.getElementById('loading').style.display='none';
