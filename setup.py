@@ -15,6 +15,11 @@ response = installPackages("sudo apt-get -y install python3-pip")
 if(response[0] != 0):
     print("Could not install python3-pip")
 
+
+response = installPackages("sudo apt-get -y openssh-server")
+if(response[0] != 0):
+    print("Coult not install SSH)
+         
 response = installPackages("sudo apt-add-repository ppa:ansible/ansible")
 if(response[0] != 0):
     print("Could not install software")
@@ -26,3 +31,4 @@ if(response[0] != 0):
 response = installPackages("sudo apt-get -y install ansible")
 if(response[0] != 0):
     print("Could not install Ansible")
+    
