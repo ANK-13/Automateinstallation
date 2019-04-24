@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <script src="./script.js"></script>
+  <link href="./style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <h1>Agentless Configuration and Management</h1>
+            <div class="col-md-2">
+                <div class="discoverbtn" style="margin-top: 50px">
+                    <div><b>NIC : </b><input id="nic" name="nic" class="form-control"></div><br>
+                    <button class="btn btn-success btn-lg" onclick="showLoadingImage()">Discover Devices</button>
+                </div>
+            </div>
+            <div class="col-md-2"><img src="./giphy.gif" id="loading" style="display:none;" width="150px" height="150px"></div>
+        </div>
+        <hr>
+        <div style="margin-top:30px">
+            <table class="table" style="display:none" id="IpTable" >
+                <thead>
+                    <tr>
+                    <th>Select</th>
+                    <th>Target System</th>
+                    <th>MAC Address</th>
+                    <th>IP Address</th>
+                    <th>User</th>
+                    <th>Password</th>
+                    <th></th>
+                    </tr>
+                </thead>
+                <tbody id="tableData">            
+                </tbody>
+            </table>
+        </div>
+        <div style="display:none" id="managebtndiv"><button class="btn btn-primary" id="managebtn" onclick="showWhatToManage()">Manage</button></div>
+        <hr>
+        <div style="color: red; display: none; margin-top: 30px; font-size: 20px" id="errorMsg"></div>
+        <div id="manageBlock" style="margin-top:50px; display: none">
+            <table class="table table-striped">
+                <thead class="thead-dark">
+                    <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Select</th>
+                    <th scope="col">Application</th>
+                    <th scope="col">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td><input type="radio" name="optradio" value="git"></td>
+                        <td><img src="./git.png" width="40px" height="30px">GIT</td>
+                        <td>Available</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td><input type="radio" name="optradio" value="java"></td>
+                        <td><img src="./java.jpg" width="40px" height="30px">JAVA</td>
+                        <td>Available</td>
+                    </tr>
+                </tbody>
+            </table>
+            <button class="btn btn-default" onclick="installSoftware()">Install</button>
+            <hr>
+            <form class="form-inline" style="margin-top: 30px">
+                <div class="form-group">
+                  <label for="cmd">Enter the Manual Command : </label>
+                  <input type="cmd" class="form-control input-lg" id="cmd">
+                </div>
+                <button type="button" class="btn btn-default" onclick="runCommand()">Submit</button>
+              </form>
+        </div>
+    </div>
+    <!-- <div id="demo"></div> -->
+</body>
+</html>
