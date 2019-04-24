@@ -7,11 +7,11 @@ def installPackages(cmd):
         except subprocess.CalledProcessError as excp:                                                                                                   
                 return [excp.returncode,excp.output]
 
-response = installPackages("sudo apt -y install python3")
+response = installPackages("sudo apt-get -y install python3")
 if(response[0] != 0):
     print("Could not install python3")
 
-response = installPackages("sudo apt -y install python3-pip")
+response = installPackages("sudo apt-get -y install python3-pip")
 if(response[0] != 0):
     print("Could not install python3-pip")
 
@@ -23,6 +23,6 @@ response = installPackages("sudo apt-get update")
 if(response[0] != 0):
     print("Could not install software")
 
-response = installPackages("sudo apt-get install ansible")
+response = installPackages("sudo apt-get -y install ansible")
 if(response[0] != 0):
     print("Could not install Ansible")
