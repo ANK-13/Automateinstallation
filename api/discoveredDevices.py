@@ -1,24 +1,29 @@
 from flask_injector import inject
 from logic.DiscoveredDevices import Devices
 from datetime import datetime
+import json
 
 class Device:
-    # def __init__(self,id: str,name: str,Org: str,date: datetime):
-    #     self.id = id
-    #     self.name = name
-    #     self.Org = Org
-    #     self.date= date
+    def __init__(self):pass
 
-    # def toJson(self):
-    #     return """
-    #         {
-    #             "id": {0},
-    #             "name": {1},
-    #             "Org": {2},
-    #             "date": {3}
-    #         }
-    #     """.format(self.id,self.name,self.Org,self.date)
-    
-    @inject(data_provider=Devices)
-    def get(data_provider: Devices):
-        return data_provider.getSample()
+    def get():
+        return json.loads("""[
+        {
+            "id": 1,
+            "MACAddr": "json-server",
+            "IPAddr": "typicode"
+        },
+        {
+            "id": 2,
+            "MACAddr": "json-server",
+            "IPAddr": "typicode"
+        }
+        ]
+        """)
+
+    def getCidrIP():
+        interface = netifaces.ifaddresses('eth0')
+        ip = interface[netifaces.AF_INET][0]['addr']
+        mask = interface[netifaces.AF_INET][0]['netmask']
+        cidr = sum(bin(int(x)).count('1') for x in mask.split('.'))
+        return ip+"/"+cidr

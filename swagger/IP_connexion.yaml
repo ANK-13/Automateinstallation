@@ -22,6 +22,6 @@ definitions:
   Device:
     type: object
     properties:
-      id: { type: int }
+      id: { type: string }
       MACAddr: { type: string }
       IPAddr: { type: string }

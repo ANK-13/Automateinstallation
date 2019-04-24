@@ -3,6 +3,9 @@ import netifaces
 
 class Devices(object):
 
+    def __init__(self):pass
+
+    @classmethod
     def getSample():
         """[
         {
