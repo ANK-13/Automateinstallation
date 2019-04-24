@@ -6,12 +6,12 @@ class Devices(object):
     def __init__(self):pass
 
     @classmethod
-    def getSample():
-        """[
+    def getSample(self):
+        return """[
         {
             "id": 1,
             "MACAddr": "json-server",
-            "IPAddr": "typicode"
+            "IPAddr": "typ"
         },
         {
             "id": 2,

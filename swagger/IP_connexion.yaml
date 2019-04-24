@@ -7,9 +7,15 @@ info:
 basePath: /v1
 
 paths:
-  /Devices/:
+  /Devices/{name}:
     get:
-      operationId: api.discoveredDevices.Device.get
+      operationId: api.discoveredDevices.Device.discoverDevices
+      parameters:
+      - name: name
+        in: path
+        required: true
+        type: string
+        format: path
       responses:
         '200':
           description: 'Fetch a list of Discovered Devices'
@@ -17,8 +23,20 @@ paths:
             type: array
             items:
               $ref: '#/definitions/Device'          
+  /IP/:
+    get:
+      operationId: api.discoveredDevices.Device.getCidrIP
+      responses:
+        '200':
+          description: 'Fetch My IP'
+          schema:
+            type: string
+            items:
+              $ref: '#/definitions/IP' 
 
 definitions:
+  IP:
+    type: string
   Device:
     type: object
     properties:
