@@ -8,7 +8,7 @@ function showLoadingImage(){
     document.getElementById("managebtn").disabled = true;
     var nic = document.getElementById("nic").value;
     var xhttp = new XMLHttpRequest();
-    xhttp.setRequestHeader("Access-Control-Allow-Origin", "*");
+    
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             document.getElementById('loading').style.display='none';
@@ -19,7 +19,7 @@ function showLoadingImage(){
             var text = '';
             for (i = 0; i < response.length; i++) {
                 text += '<tr>\
-                <td><input type="checkbox" name="messageCheckbox" id="select'+i+'" value="'+response[i].author+'" onclick="if(this.checked){checkPasswordField('+i+')}"></td> \
+                <td><input type="checkbox" name="messageCheckbox" id="select'+i+'" value="'+response[i].IPAddr+'" onclick="if(this.checked){checkPasswordField('+i+')}"></td> \
                 <td>'+response[i].Hostname+'</td> \
                 <td>'+response[i].MACAddr+'</td> \
                 <td>'+response[i].IPAddr+'</td> \
@@ -33,17 +33,19 @@ function showLoadingImage(){
     };
     // xhttp.open("GET", link+"/posts/", true);
     xhttp.open("GET", link+"/v1/Devices/"+nic, true);
+    xhttp.setRequestHeader("Access-Control-Allow-Origin" ,"*");
+    xhttp.setRequestHeader("Content-Type", "application/json");
     xhttp.send();
 }
 
 
 function showWhatToManage(){
     document.getElementById('errorMsg').style.display='none';
-    selectedIPAddr = [];
     var items=document.getElementsByName('messageCheckbox');
     for(var i=0; i<items.length; i++){
         if(items[i].type=='checkbox' && items[i].checked==true){
             selectedIPAddr.push(items[i].value);
+            console.log(items)
             passwordArr.push(document.getElementById("password"+i).value)
         }
     }
@@ -60,6 +62,7 @@ function showWhatToManage(){
 function installSoftware(){
     var softwareToInstall = document.querySelector('input[name = "optradio"]:checked').value;
     var configData = [];
+    configData.push(softwareToInstall);
     for(i=0; i< selectedIPAddr.length; i++){
         var data = {
             "IP" : selectedIPAddr[i],
@@ -67,10 +70,11 @@ function installSoftware(){
         }
         configData.push(data);
     }
+    console.log(configData);
     var xmlhttp = new XMLHttpRequest();
-    xmlhttp.open("POST", link+"/v1/Broadcast");
-    xmlhttp.setRequestHeader("Content-Type", "application/json");
-    xmlhttp.setRequestHeader("Package", softwareToInstall);
+    xmlhttp.open("POST", link+"/v2/Broadcast/");
+    xmlhttp.setRequestHeader("Content-Type", "text/plain");
+    // xmlhttp.setRequestHeader("Package", softwareToInstall);
     xmlhttp.send(JSON.stringify(configData));
 }
 

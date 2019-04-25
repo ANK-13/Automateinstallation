@@ -28,19 +28,41 @@ class Commands:
         output = Commands.getFileLocation("data/output")
         cmd = "ansible-playbook -i {0} {1} > {2}".format(hosts,playbook,output)
         Commands.execIt(cmd)
+        return output
 
     def createPlaybook():
-        package = request.headers["Package"]
         data = json.loads(request.data)
+        package = data[0]
+        print("Software toinstall: ",package)
         with open(Commands.getFileLocation("data/hosts"),"w") as f:
             f.write("[Devices]\n")
-            for user in data:
+            for user in data[1:]:
                 f.write("{0} ansible-ssh-user=root ansible-ssh-pass={1}\n".format(user["IP"],user["pass"]))
-        
+        playbook = ""
         if(package == "git"):
             playbook = Commands.getFileLocation("playbooks/git.yaml")
         elif(package == "java"):
             playbook = Commands.getFileLocation("playbooks/java.yaml")
-        Commands.executePlaybooks(playbook)
-        return package
+        logs = Commands.executePlaybooks(playbook)
+        with open(logs,"r") as l:
+            flg = 0
+            response = []
+            for line in l.readlines():
+                line = line.split()
+                if(len(line)>=3 and line[0]=="PLAY" and line[1]=="RECAP"):
+                    flg = 1
+                    continue
+                if(flg==1):
+                    if(len(line)<3):
+                        continue
+                    print("================>",line)
+                    tmp = {
+                        "IP": line[0],
+                        "ok": line[2].split("=")[1],
+                        "changed": line[3].split("=")[1],
+                        "unreachable": line[4].split("=")[1],
+                        "failed": line[5].split("=")[1]
+                    }
+                    response.append(tmp)
+        return response
 

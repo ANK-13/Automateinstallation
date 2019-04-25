@@ -1,0 +1,7 @@
+---
+- hosts: Devices
+  become: true
+  
+  tasks:
+  - name: Install JDK 8
+    command: "yum install java-1.8.0-openjdk-devel -y"
