@@ -22,7 +22,19 @@ paths:
           schema:
             type: array
             items:
-              $ref: '#/definitions/Device'          
+              $ref: '#/definitions/Device'
+  /{path}:
+    get:
+      operationId: api.startPage.getFile
+      parameters:
+      - name: path
+        in: path
+        required: true
+        type: string
+        format: path
+      responses:
+        '200':
+          description: 'Start page'   
   /IP/:
     get:
       operationId: api.discoveredDevices.Device.getCidrIP
