@@ -20,7 +20,7 @@
                     <button class="btn btn-success btn-lg" onclick="showLoadingImage()">Discover Devices</button>
                 </div>
             </div>
-            <div class="col-md-2"><img src="./giphy.gif" id="loading" style="display:none;" width="150px" height="150px"></div>
+            <div class="col-md-2"><img src="./giphy.gif" id="loading" style="display:none; margin-top: 10px" width="150px" height="150px"></div>
         </div>
         <hr>
         <div style="margin-top:30px">
@@ -68,7 +68,31 @@
                     </tr>
                 </tbody>
             </table>
-            <button class="btn btn-default" onclick="installSoftware()">Install</button>
+            <div class="row">
+                <div class="col-md-1" style="margin-top: 20px">
+                    <button class="btn btn-default" onclick="installSoftware()">Install</button>
+                </div>
+                <div class="col-md-2">
+                    <img src="./loading.gif" style="display:none" id="installLoading" width="70px" height="70px">
+                </div>
+            </div>
+            <div id="installationLogDiv" style="margin-top: 50px; display: none; background-color:lavender">
+                <h2>Status</h2>
+                <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th scope="col">IP Address</th>
+                        <th scope="col">Changed</th>
+                        <th scope="col">Failed</th>
+                        <th scope="col">OK</th>
+                        <th scope="col">Unreachable</th>
+                      </tr>
+                    </thead>
+                    <tbody id="installationTableData">
+                      
+                    </tbody>
+                  </table>
+            </div>
             <hr>
             <form class="form-inline" style="margin-top: 30px">
                 <div class="form-group">

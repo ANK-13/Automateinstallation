@@ -60,6 +60,7 @@ function showWhatToManage(){
 
 
 function installSoftware(){
+    document.getElementById('installLoading').style.display='block';
     var softwareToInstall = document.querySelector('input[name = "optradio"]:checked').value;
     var configData = [];
     configData.push(softwareToInstall);
@@ -70,12 +71,30 @@ function installSoftware(){
         }
         configData.push(data);
     }
-    console.log(configData);
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.open("POST", link+"/v2/Broadcast/");
-    xmlhttp.setRequestHeader("Content-Type", "text/plain");
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            response = JSON.parse(this.responseText);
+            document.getElementById('installLoading').style.display='none';
+            document.getElementById('installationLogDiv').style.display = 'block';
+            var text = '';
+            for (i = 0; i < response.length; i++) {
+                text += '<tr>\
+                <th scope="row">'+response[i].IP+'</th>\
+                <td>'+response[i].changed+'</td>\
+                <td>'+response[i].failed+'</td>\
+                <td>'+response[i].ok+'</td>\
+                <td>'+response[i].unreachable+'</td>\
+              </tr>';
+            }
+            document.getElementById('installationTableData').innerHTML = text;
+        }
+      };
+    
+    xhttp.open("POST", link+"/v2/Broadcast/");
+    xhttp.setRequestHeader("Content-Type", "text/plain");
     // xmlhttp.setRequestHeader("Package", softwareToInstall);
-    xmlhttp.send(JSON.stringify(configData));
+    xhttp.send(JSON.stringify(configData));
 }
 
 
