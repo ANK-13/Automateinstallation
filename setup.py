@@ -10,15 +10,15 @@ def install(cmd):
                 return [excp.returncode,excp.output]
 
 
-response=install("sudo apt-get install -y --force-yes python3")
+response=install("sudo apt-get install -y  python3")
 if(response[0] != 0):
         print("could not install python3")
 
-response=install("sudo apt-get install -y --force-yes python3-pip")
+response=install("sudo apt-get install -y  python3-pip")
 if(response[0] != 0):
         print("could not install python3-pip")
 
-response = install("sudo apt-get install -y --force-yes nmap")
+response = install("sudo apt-get install -y  nmap")
 if(response[0] != 0):
 	print("Could not install nmap")
 
@@ -30,7 +30,7 @@ response = install("sudo apt-get update")
 if(response[0] != 0):
     print("Could not install software")
 
-response = install("sudo apt-get -y --force-yes install ansible")
+response = install("sudo apt-get -y  install ansible")
 if(response[0] != 0):
     print("Could not install software-installer")
 
@@ -42,12 +42,15 @@ reponse = install("sudo virtualenv -p /usr/bin/python3 env")
 if(response[0] != 0):
 	print("could not create a virtual env")
 
-response = install("/root/project/Automateinstallation/env/bin/pip3 install -r requirements.txt")
+response = install("./env/bin/pip3 install -r requirements.txt")
 if(response[0] != 0):
         print("could not install requirements file")
 
-response = install("/root/project/Automateinstallation/env/bin/python3 app.py")
+response = install("./env/bin/python3 app.py")
 if(response[0] != 0):
         print("could not run project")
 
+response = install("sudo sed -i 's/#   StrictHostKeyChecking ask/StrictHostKeyChecking no/g' /etc/ssh/ssh_config")
+if(response[0] != 0):
+        print("could not edit ssh_config")
 
