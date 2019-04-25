@@ -45,7 +45,6 @@ function showWhatToManage(){
     for(var i=0; i<items.length; i++){
         if(items[i].type=='checkbox' && items[i].checked==true){
             selectedIPAddr.push(items[i].value);
-            console.log(items)
             passwordArr.push(document.getElementById("password"+i).value)
         }
     }
@@ -112,15 +111,40 @@ function checkPasswordField(i){
 
 
 function runCommand(){
+    document.getElementById('manualInstallLoading').style.display='block';
     var cmd  = document.getElementById("cmd").value;
-    console.log(cmd);
-
+    var softwareToInstall = cmd;
+    var configData = [];
+    configData.push(softwareToInstall);
+    for(i=0; i< selectedIPAddr.length; i++){
+        var data = {
+            "IP" : selectedIPAddr[i],
+            "pass" : passwordArr[i]
+        }
+        configData.push(data);
+    }
+    console.log(configData);
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-        document.getElementById("demo").innerHTML = this.responseText;
+            response = JSON.parse(this.responseText);
+            document.getElementById('manualInstallLoading').style.display='none';
+            document.getElementById('installationLogDiv').style.display = 'block';
+            var text = '';
+            for (i = 0; i < response.length; i++) {
+                text += '<tr>\
+                <th scope="row">'+response[i].IP+'</th>\
+                <td>'+response[i].changed+'</td>\
+                <td>'+response[i].failed+'</td>\
+                <td>'+response[i].ok+'</td>\
+                <td>'+response[i].unreachable+'</td>\
+              </tr>';
+            }
+            document.getElementById('installationTableData').innerHTML = text;
         }
     };
-    xhttp.open("GET", link+"/command?cmd="+cmd, true);
-    xhttp.send();
+    
+    xhttp.open("POST", link+"/v2/Broadcast/");
+    xhttp.setRequestHeader("Content-Type", "text/plain");
+    xhttp.send(JSON.stringify(configData));
 }

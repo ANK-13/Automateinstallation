@@ -36,12 +36,12 @@ class Commands:
         installString = "pkg={} state=installed update_cache=true".format(packageName)
 
         data = """
-        ---
-        - hosts: Devices
-        become: true
-        tasks:
-        - name: Install Package
-            apt: {}
+---
+- hosts: Devices
+  become: true
+  tasks:
+  - name: Install Package
+    apt: {}
         """.format(installString)
 
         with open(playbookLocation, 'w') as myFile:

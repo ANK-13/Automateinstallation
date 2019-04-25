@@ -76,23 +76,7 @@
                     <img src="./loading.gif" style="display:none" id="installLoading" width="70px" height="70px">
                 </div>
             </div>
-            <div id="installationLogDiv" style="margin-top: 50px; display: none; background-color:lavender">
-                <h2>Status</h2>
-                <table class="table table-hover">
-                    <thead>
-                      <tr>
-                        <th scope="col">IP Address</th>
-                        <th scope="col">Changed</th>
-                        <th scope="col">Failed</th>
-                        <th scope="col">OK</th>
-                        <th scope="col">Unreachable</th>
-                      </tr>
-                    </thead>
-                    <tbody id="installationTableData">
-                      
-                    </tbody>
-                  </table>
-            </div>
+            
             <hr>
             <form class="form-inline" style="margin-top: 30px">
                 <div class="form-group">
@@ -100,9 +84,27 @@
                   <input type="cmd" class="form-control input-lg" id="cmd">
                 </div>
                 <button type="button" class="btn btn-default" onclick="runCommand()">Submit</button>
+                <img src="./loading.gif" style="display:none" id="manualInstallLoading" width="70px" height="70px">
               </form>
         </div>
+        <div id="installationLogDiv" style="margin-top: 50px; display: none; background-color:lavender">
+            <h2>Status</h2>
+            <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col">IP Address</th>
+                    <th scope="col">Changed</th>
+                    <th scope="col">Failed</th>
+                    <th scope="col">OK</th>
+                    <th scope="col">Unreachable</th>
+                  </tr>
+                </thead>
+                <tbody id="installationTableData">
+                  
+                </tbody>
+              </table>
+        </div>
     </div>
-    <!-- <div id="demo"></div> -->
+    <div id="demo"></div>
 </body>
 </html>
