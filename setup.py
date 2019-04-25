@@ -37,6 +37,10 @@ if(response[0] != 0):
 response = install("sudo pip3 install virtualenv")
 if(response[0] != 0):
     print("Could not install virtualenv")
+
+response = install("sudo apt-get install sshpass")
+if(response[0] != 0):
+    print("Could not install sshpass")
 	
 reponse = install("sudo virtualenv -p /usr/bin/python3 env")
 if(response[0] != 0):
@@ -54,6 +58,8 @@ response = install("sudo sed -i 's/#   StrictHostKeyChecking ask/StrictHostKeyCh
 if(response[0] != 0):
         print("could not edit ssh_config")
 
-response = install('ssh-keygen -t rsa -f /root/.ssh/id_rsa -q -P ""')
+response = install('sudo rm -f /root/.ssh/id_rsa.pub')
+response = install('sudo rm -f /root/.ssh/id_rsa')
+response = install('sudo ssh-keygen -t rsa -f /root/.ssh/id_rsa -q -P ""')
 if(response[0] != 0):
         print("WARNING: Could not generate Key")
