@@ -50,10 +50,6 @@ response = install("./env/bin/pip3 install -r requirements.txt")
 if(response[0] != 0):
         print("could not install requirements file")
 
-response = install("./env/bin/python3 app.py")
-if(response[0] != 0):
-        print("could not run project")
-
 response = install("sudo sed -i 's/#   StrictHostKeyChecking ask/StrictHostKeyChecking no/g' /etc/ssh/ssh_config")
 if(response[0] != 0):
         print("could not edit ssh_config")
@@ -63,3 +59,7 @@ response = install('sudo rm -f /root/.ssh/id_rsa')
 response = install('sudo ssh-keygen -t rsa -f /root/.ssh/id_rsa -q -P ""')
 if(response[0] != 0):
         print("WARNING: Could not generate Key")
+	
+response = install("./env/bin/python3 app.py")
+if(response[0] != 0):
+        print("could not run project")
