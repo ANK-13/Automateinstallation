@@ -10,6 +10,10 @@ def install(cmd):
                 return [excp.returncode,excp.output]
 
 
+response = install("sudo apt-get update")
+if(response[0] != 0):
+    print("Could not install software")
+
 response=install("sudo apt-get install -y  python3")
 if(response[0] != 0):
         print("could not install python3")
