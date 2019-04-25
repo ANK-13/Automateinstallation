@@ -1,34 +1,34 @@
 import subprocess
+import os
 
-def installPackages(cmd):
-    try:
-            out = subprocess.check_output(cmd, shell=True).decode("utf-8")
-            return [0,out]                 
-        except subprocess.CalledProcessError as excp:                                                                                                   
+def install(cmd):
+        FNULL = open(os.devnull, 'w')
+        try:
+            out = subprocess.check_call(cmd,stdout=FNULL,shell=True)
+            return [0,out]
+        except subprocess.CalledProcessError as excp:                                                                                             
                 return [excp.returncode,excp.output]
 
-response = installPackages("sudo apt-get -y install python3")
-if(response[0] != 0):
-    print("Could not install python3")
 
-response = installPackages("sudo apt-get -y install python3-pip")
+response=install("sudo apt-get install -y --force-yes python3")
 if(response[0] != 0):
-    print("Could not install python3-pip")
+        print("could not install python3")
 
-
-response = installPackages("sudo apt-get -y openssh-server")
+response=install("sudo apt-get install -y --force-yes python3-pip")
 if(response[0] != 0):
-    print("Coult not install SSH)
-         
-response = installPackages("sudo apt-add-repository ppa:ansible/ansible")
+        print("could not install python3-pip")
+
+response = install("sudo apt-add-repository -y ppa:ansible/ansible")
 if(response[0] != 0):
     print("Could not install software")
 
-response = installPackages("sudo apt-get update")
+response = install("sudo apt-get update")
 if(response[0] != 0):
-    print("Could not install software")
+   print("Could not install software")
 
-response = installPackages("sudo apt-get -y install ansible")
+response = install("sudo apt-get -y --force-yes install ansible")
 if(response[0] != 0):
     print("Could not install Ansible")
-    
+
+print(response)
+
