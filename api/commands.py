@@ -3,6 +3,7 @@ import json
 import os
 import subprocess
 
+
 class Commands:
 
     def __init__(self):pass
@@ -30,6 +31,22 @@ class Commands:
         Commands.execIt(cmd)
         return output
 
+    @classmethod
+    def generatePlaybook(self, packageName, playbookLocation):
+        installString = "pkg={} state=installed update_cache=true".format(packageName)
+
+        data = """
+        ---
+        - hosts: webservers
+        become: true
+        tasks:
+        - name: Install Package
+            apt: {}
+        """.format(installString)
+
+        with open(playbookLocation, 'w') as myFile:
+            myFile.write(data)
+
     def createPlaybook():
         data = json.loads(request.data)
         package = data[0]
@@ -43,6 +60,9 @@ class Commands:
             playbook = Commands.getFileLocation("playbooks/git.yaml")
         elif(package == "java"):
             playbook = Commands.getFileLocation("playbooks/java.yaml")
+        else:
+            playbook = Commands.getFileLocation("playbooks/general.yaml")
+            Commands.generatePlaybook(package, playbook)
         logs = Commands.executePlaybooks(playbook)
         with open(logs,"r") as l:
             flg = 0
