@@ -49,7 +49,12 @@ class Device:
         if(cidr[1]==406):
             return cidr
         print("Discovering Devices for follwoing subnet: ",cidr)
-        response = Device.execIt("nmap -sP {0}".format(cidr))
+        response = Device.execIt("""nmap -n -sn {0} -oG -""".format(cidr))
+        for device in response[1].split("\n"):
+            data = device.split()
+            if(len(data)>0 and data[0]=="Host:"):
+                res = Device.execIt("ping -c 1 {0}".format(data[1]))  
+                print(data[1])  
         response = Device.execIt("arp -a -i {0}".format(name))
         devices = []
         if(response[0] == 0):
