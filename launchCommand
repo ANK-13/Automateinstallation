@@ -5,3 +5,4 @@ echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
 service ssh restart
 service sshd restart
 echo root:root | chpasswd
+sudo apt-get install -y python-minimal
