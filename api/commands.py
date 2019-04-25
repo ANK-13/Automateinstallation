@@ -37,7 +37,7 @@ class Commands:
 
         data = """
         ---
-        - hosts: webservers
+        - hosts: Devices
         become: true
         tasks:
         - name: Install Package
@@ -58,8 +58,6 @@ class Commands:
         playbook = ""
         if(package == "git"):
             playbook = Commands.getFileLocation("playbooks/git.yaml")
-        elif(package == "java"):
-            playbook = Commands.getFileLocation("playbooks/java.yaml")
         else:
             playbook = Commands.getFileLocation("playbooks/general.yaml")
             Commands.generatePlaybook(package, playbook)

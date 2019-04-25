@@ -1,0 +1,8 @@
+
+        ---
+        - hosts: Devices
+        become: true
+        tasks:
+        - name: Install Package
+            apt: pkg=java state=installed update_cache=true
+        

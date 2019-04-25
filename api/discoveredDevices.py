@@ -71,6 +71,34 @@ class Device:
             return devices
         else:
             return "Could not find Devices", 501
+
+    def discoverDevicesNMap(name):
+        cidr = Device.getCidrIP(name)
+        if(cidr[1]==406):
+            return cidr
+        print("Discovering Devices for follwoing subnet: ",cidr)
+        response = Device.execIt("sudo nmap -sP {0}".format(name))
+        devices = []
+        if(response[0] == 0):
+            id = 1
+            for device in response[1].split("\n"):
+                data = device.split(" ")
+                if(len(data)<4):
+                    continue
+                ip = data[1].strip("(").strip(")")
+                mac = data[3]
+                hostname = data[0]
+                data = {
+                    "id": id,
+                    "MACAddr": mac,
+                    "IPAddr": ip,
+                    "Hostname": hostname
+                }
+                devices.append(data)
+                id+=1
+            return devices
+        else:
+            return "Could not find Devices", 501
         
 
 

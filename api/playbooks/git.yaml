@@ -1,6 +1,0 @@
----
-- hosts: Devices
-  become: true
-  tasks:
-  - name: Install Package
-    yum: name=vim,git state=latest
