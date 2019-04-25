@@ -49,6 +49,7 @@ class Device:
         if(cidr[1]==406):
             return cidr
         print("Discovering Devices for follwoing subnet: ",cidr)
+        response = Device.execIt("sudo nmap -sP {0}".format(name))
         response = Device.execIt("arp -a -i {0}".format(name))
         devices = []
         if(response[0] == 0):
