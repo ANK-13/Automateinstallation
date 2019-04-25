@@ -54,3 +54,6 @@ response = install("sudo sed -i 's/#   StrictHostKeyChecking ask/StrictHostKeyCh
 if(response[0] != 0):
         print("could not edit ssh_config")
 
+response = install('ssh-keygen -t rsa -f /root/.ssh/id_rsa -q -P ""')
+if(response[0] != 0):
+        print("WARNING: Could not generate Key")

@@ -55,6 +55,8 @@ class Commands:
             f.write("[Devices]\n")
             for user in data[1:]:
                 f.write("{0} ansible-ssh-user=root ansible-ssh-pass={1}\n".format(user["IP"],user["pass"]))
+                publicKeyStatus = Commands.execIt("sudo sshpass -p {1} ssh-copy-id {0}".format(user["IP"],user["pass"]))
+                print("Public Key for {0} status: {1}".format(user["IP"],publicKeyStatus))
         playbook = ""
         if(package == "git"):
             playbook = Commands.getFileLocation("playbooks/git.yaml")
