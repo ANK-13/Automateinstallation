@@ -1,7 +1,7 @@
 var response = '';
 var selectedIPAddr = [];
 var passwordArr = [];
-var link = "http://localhost:5000";
+var link = document.URL.slice(0, -14);
 
 function showLoadingImage(){ 
     document.getElementById('loading').style.display='block';
